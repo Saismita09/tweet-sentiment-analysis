@@ -6,8 +6,9 @@ This project uses twitter search API from tweepy, Searches for Tweets and gives 
 ![](labeled-tweet-generator-master/pg2.jpg)
 
 # Development Guide
-Create a virtualenv. virtualenv venv
-Activate venv. source venv/bin/activate
-Install the requirements. pip install -r requirements.txt
-Save the ACCESS_TOKEN, ACCESS_TOKEN_SECRET, CONSUMER_KEY, CONSUMER_SECRET as environment variables. You can follow this guide for Heroku.
-Run the server. python app.py
+1.Create a virtualenv. virtualenv venv <br>
+2.Activate venv. source venv/bin/activate<br>
+3.Install the requirements. pip install -r requirements.txt<br>
+4.Save the ACCESS_TOKEN, ACCESS_TOKEN_SECRET, CONSUMER_KEY, CONSUMER_SECRET as environment variables.<br> 
+Note: if you want to deploy the application you can do the same, You can follow this guide for Heroku.<br>
+5.Run the server. python app.py<br>
