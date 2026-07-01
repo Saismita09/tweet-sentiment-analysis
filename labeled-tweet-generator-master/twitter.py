@@ -11,21 +11,22 @@ class TwitterClient(object):
     '''
     def __init__(self, query, retweets_only=False, with_sentiment=False):
         # keys and tokens from the Twitter Dev Console
-        consumer_key = [add_your_consumer_key]
-        consumer_secret = [add_your_consumer_secret_key]
-        access_token = [add_your_token]
-        access_token_secret = [add_your_token_secret_key]
+        consumer_key = os.environ.get('CONSUMER_KEY')
+        consumer_secret = os.environ.get('CONSUMER_SECRET')
+        access_token = os.environ.get('ACCESS_TOKEN')
+        access_token_secret = os.environ.get('ACCESS_TOKEN_SECRET')
         # Attempt authentication
-        try:
+        if all([consumer_key, consumer_secret, access_token, access_token_secret]):
             self.auth = OAuthHandler(consumer_key, consumer_secret)
             self.auth.set_access_token(access_token, access_token_secret)
-            self.query = query
-            self.retweets_only = retweets_only
-            self.with_sentiment = with_sentiment
             self.api = tweepy.API(self.auth)
-            self.tweet_count_max = 100  # To prevent Rate Limiting
-        except:
-            print("Error: Authentication Failed")
+        else:
+            self.auth = None
+            self.api = None
+        self.query = query
+        self.retweets_only = retweets_only
+        self.with_sentiment = with_sentiment
+        self.tweet_count_max = 100  # To prevent Rate Limiting
 
     def set_query(self, query=''):
         self.query = query
@@ -50,6 +51,8 @@ class TwitterClient(object):
 
     def get_tweets(self):
         tweets = []
+        if self.api is None:
+            return tweets
 
         try:
             recd_tweets = self.api.search(q=self.query,count=self.tweet_count_max) #, lang=['en'])
@@ -75,5 +78,5 @@ class TwitterClient(object):
 
             return tweets
 
-        except tweepy.TweepError as e:
-            print("Error : " + str(e))
+        except Exception:
+            return tweets

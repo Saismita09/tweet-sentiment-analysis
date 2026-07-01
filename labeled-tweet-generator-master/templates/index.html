@@ -20,6 +20,10 @@
 				<input type="text" id="query">
 				<button id="search">Search</button>
 				<button id="getcsv">Download CSV</button>
+				<form action="/label_csv" method="post" enctype="multipart/form-data">
+					<input type="file" name="tweet_csv" accept=".csv">
+					<button type="submit">Label CSV</button>
+				</form>
 				<div id="loading">Loading...</div>
 				<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 				
